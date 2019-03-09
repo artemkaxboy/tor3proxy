@@ -58,7 +58,7 @@ and password.
                     required args: "<port>;<host:port>"
                     <port> - port for .onion service to listen on
                     <host:port> - destination for service request
-        -u \"<user>:<password>\" User and password to get access through
+        -u "<user>:<password>" User and password to get access through
                     SOCKS5 3proxy, may be included more than once
 
     The 'command' (if provided and valid) will be run instead of torproxy
