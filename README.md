@@ -70,7 +70,7 @@ PROXY USERS LIST
 As well as setting up users by option `-u`, you may pass a list of
 user/password as a volume file:
 
-    docker run -v /path/to/file/on/host:/users artemkaxboy/tor3proxy
+    docker run -p 1080:1080 -v /path/to/file/on/host:/users artemkaxboy/tor3proxy
 
 The file must contain the list in the following format:
     
