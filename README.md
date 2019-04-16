@@ -133,7 +133,7 @@ OR
 
 ## Test the proxy:
 
-    curl -Lx --socks5 <ipv4_address>:1080 --proxy-user <user>:<password> http://jsonip.com
+    curl -Lxv --socks5 <ipv4_address>:1080 --proxy-user <user>:<password> http://jsonip.com
 
 ---
 
