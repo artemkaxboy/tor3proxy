@@ -111,8 +111,12 @@ The 'command' (if provided and valid) will be run instead of torproxy
 #   name) for user
 #   password) for user
 # Return: user added to container
-user() { local name="$1" passwd="$2"
-    printf "users $name:CL:$passwd\n" >> /etc/3proxy/cfg/3proxy.cfg
+user() { local
+    user="$(echo $1 | cut -d':' -f1)"
+    passwd="$(echo $1 | cut -d':' -f2)"
+
+    printf "users $user:CL:$passwd\n" >> /etc/3proxy/cfg/3proxy.cfg
+    echo "user $user added"
 }
 
 while getopts ":hb:el:np:s:u:" opt; do
@@ -124,7 +128,7 @@ while getopts ":hb:el:np:s:u:" opt; do
         n) newnym ;;
         p) password "$OPTARG" ;;
         s) eval hidden_service $(sed 's/^/"/; s/$/"/; s/;/" "/g' <<< $OPTARG) ;;
-        u) eval user $(sed 's/^/"/; s/$/"/; s/:/" "/g' <<< $OPTARG) ;;
+        u) eval user "$OPTARG" ;;
         "?") echo "Unknown option: -$OPTARG"; usage 1 ;;
         ":") echo "No argument value for option: -$OPTARG"; usage 2 ;;
     esac
