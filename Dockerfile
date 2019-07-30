@@ -1,6 +1,6 @@
 # 3proxy docker
 
-FROM alpine:latest as builder
+FROM alpine:3.10 as builder
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
 RUN apk add --no-cache --no-progress alpine-sdk git bash && \
