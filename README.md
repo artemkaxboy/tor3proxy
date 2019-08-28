@@ -1,4 +1,4 @@
-DockerHub: https://cloud.docker.com/u/artemkaxboy/repository/docker/artemkaxboy/tor3proxy
+DockerHub: <https://cloud.docker.com/u/artemkaxboy/repository/docker/artemkaxboy/tor3proxy>
 
 # Tor and 3proxy
 
@@ -6,13 +6,13 @@ Tor and 3proxy (socks5 proxy configured to route through tor) docker container.
 The main goal of this image is to allow you to reach web resources through
 tor-network with a chane to protect access to your proxy with a password.
 
-# What is Tor?
+# What is Tor
 
 Tor is free software and an open network that helps you defend against traffic
 analysis, a form of network surveillance that threatens personal freedom and
 privacy, confidential business activities and relationships, and state security.
 
-# What is 3proxy?
+# What is 3proxy
 
 3proxy is a tiny free proxy server.
 
@@ -83,28 +83,28 @@ You might notice the quotes in the second line, they are needed because of
 you must use quotes to escape it.
 
 The following password types are supported:
- * `CL` - clear text password
- * `CR` - passwords encrypted by crypt() (MD5 only)
- * `NT` - hex-string representing NT-password
+* `CL` - clear text password
+* `CR` - passwords encrypted by crypt() (MD5 only)
+* `NT` - hex-string representing NT-password
 
 Users list must be set up during container creation.
 
 ENVIRONMENT VARIABLES
 
- * `TORUSER` - If set use named user instead of 'tor' (for example root)
- * `BW` - As above, set a tor relay bandwidth limit in KB, IE `50`
- * `EXITNODE` - As above, allow tor traffic to access the internet from your IP
- * `LOCATION` - As above, configure the country to use for exit node selection
- * `PASSWORD` - As above, configure HashedControlPassword for control port
- * `SERVICE` - As above, configure hidden service, IE '80;hostname:80'
- * `TZ` - Configure the zoneinfo timezone, IE `EST5EDT`
- * `USERID` - Set the UID for the app user
- * `GROUPID` - Set the GID for the app user
+* `TORUSER` - If set use named user instead of 'tor' (for example root)
+* `BW` - As above, set a tor relay bandwidth limit in KB, IE `50`
+* `EXITNODE` - As above, allow tor traffic to access the internet from your IP
+* `LOCATION` - As above, configure the country to use for exit node selection
+* `PASSWORD` - As above, configure HashedControlPassword for control port
+* `SERVICE` - As above, configure hidden service, IE '80;hostname:80'
+* `TZ` - Configure the zoneinfo timezone, IE `EST5EDT`
+* `USERID` - Set the UID for the app user
+* `GROUPID` - Set the GID for the app user
 
 Other environment variables beginning with `TOR_` will edit the configuration
 file accordingly:
 
- * `TOR_NewCircuitPeriod=400` will translate to `NewCircuitPeriod 400`
+* `TOR_NewCircuitPeriod=400` will translate to `NewCircuitPeriod 400`
 
 ## Examples
 
@@ -131,7 +131,7 @@ OR
 
     docker run -it -p 1080:1080 -e EXITNODE=1 -d artemkaxboy/tor3proxy
 
-## Test the proxy:
+## Test the proxy
 
     curl -Lxv --socks5 <ipv4_address>:1080 --proxy-user <user>:<password> http://jsonip.com
 
