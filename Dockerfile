@@ -5,8 +5,7 @@ LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
 RUN apk add --no-cache --no-progress alpine-sdk git bash && \
     git clone https://github.com/artemkaxboy/3proxy.git /3proxy && \
-    cd /3proxy && \
-    make -f Makefile.Linux
+    make -f /3proxy/Makefile.Linux -C /3proxy
 
 # STEP 2
 
