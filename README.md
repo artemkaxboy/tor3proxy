@@ -83,28 +83,28 @@ You might notice the quotes in the second line, they are needed because of
 you must use quotes to escape it.
 
 The following password types are supported:
-*  `CL` - clear text password
-*  `CR` - passwords encrypted by crypt() (MD5 only)
-*  `NT` - hex-string representing NT-password
+* `CL` - clear text password
+* `CR` - passwords encrypted by crypt() (MD5 only)
+* `NT` - hex-string representing NT-password
 
 Users list must be set up during container creation.
 
 ENVIRONMENT VARIABLES
 
-*  `TORUSER` - If set use named user instead of 'tor' (for example root)
-*  `BW` - As above, set a tor relay bandwidth limit in KB, IE `50`
-*  `EXITNODE` - As above, allow tor traffic to access the internet from your IP
-*  `LOCATION` - As above, configure the country to use for exit node selection
-*  `PASSWORD` - As above, configure HashedControlPassword for control port
-*  `SERVICE` - As above, configure hidden service, IE '80;hostname:80'
-*  `TZ` - Configure the zoneinfo timezone, IE `EST5EDT`
-*  `USERID` - Set the UID for the app user
-*  `GROUPID` - Set the GID for the app user
+* `TORUSER` - If set use named user instead of 'tor' (for example root)
+* `BW` - As above, set a tor relay bandwidth limit in KB, IE `50`
+* `EXITNODE` - As above, allow tor traffic to access the internet from your IP
+* `LOCATION` - As above, configure the country to use for exit node selection
+* `PASSWORD` - As above, configure HashedControlPassword for control port
+* `SERVICE` - As above, configure hidden service, IE '80;hostname:80'
+* `TZ` - Configure the zoneinfo timezone, IE `EST5EDT`
+* `USERID` - Set the UID for the app user
+* `GROUPID` - Set the GID for the app user
 
 Other environment variables beginning with `TOR_` will edit the configuration
 file accordingly:
 
-*  `TOR_NewCircuitPeriod=400` will translate to `NewCircuitPeriod 400`
+* `TOR_NewCircuitPeriod=400` will translate to `NewCircuitPeriod 400`
 
 ### Examples
 
