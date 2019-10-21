@@ -17,6 +17,7 @@
 #===============================================================================
 
 set -o nounset                              # Treat unset variables as an error
+USER=0
 
 ### bandwidth: set the BW available for relaying
 # Arguments:
@@ -117,6 +118,7 @@ user() { local
 
     printf "users $user:CL:$passwd\n" >> /etc/3proxy/cfg/3proxy.cfg
     echo "user $user added"
+    USER=1
 }
 
 while getopts ":hb:el:np:s:u:" opt; do
@@ -158,7 +160,11 @@ done
 chown -Rh tor. /etc/tor /var/lib/tor /var/log/tor 2>&1 |
             grep -iv 'Read-only' || :
 
-[[ -f /users ]] && printf "users $\"/users\"\n" >> /etc/3proxy/cfg/3proxy.cfg
+if [[ -f /users ]]; then
+    printf "users $\"/users\"\n" >> /etc/3proxy/cfg/3proxy.cfg
+elif [[ ${USER} -ne 1 ]]; then
+    sed -i '/auth strong/d' /etc/3proxy/cfg/3proxy.cfg
+fi
 
 if [[ $# -ge 1 && -x $(which $1 2>&-) ]]; then
     exec "$@"
