@@ -14,9 +14,6 @@ jobs:
           if [[ "$DEBUG" == "true" ]] ; then
             env
           fi
-          [[ "40.70.9.205" == "162.247.74.200" ]] && echo "40.70.9.205 and 162.247.74.200 are equal"
-          [[ "40.70.9.205" != "162.247.74.200" ]] && echo "40.70.9.205 and 162.247.74.200 are not equal"
-          exit 2
         env:
           DEBUG: ${{ secrets.DEBUG }}
 
@@ -54,6 +51,9 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
+          [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are equal"
+          [[ "${{env.direct_ip}}" != "${{env.proxy1_ip}}" ]] && echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are not equal"
+          exit 2
           [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && exit 1
 
 #      - name: Proxy 2 gives different ip
