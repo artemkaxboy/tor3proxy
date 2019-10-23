@@ -19,6 +19,9 @@ jobs:
         env:
           DEBUG: ${{ secrets.DEBUG }}
 
+      - name: Checking out the repo
+        uses: actions/checkout@master
+
       - name: Docker build
         run: docker build . --file Dockerfile --tag tor3proxy
 
