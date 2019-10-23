@@ -1,0 +1,21 @@
+name: Trying Actions
+
+on: pull_request
+
+jobs:
+  build:
+    name: Building an image
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Docker version
+        run: docker version
+      - name: Debug if needed
+        run: |
+          export DEBUG=${DEBUG:-false}
+          if [[ "$DEBUG" == "true" ]] ; then
+            env
+          fi
+        env:
+          DEBUG: ${{secrets.DEBUG}}
+
