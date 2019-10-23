@@ -3,13 +3,14 @@ name: Tests
 on:
   pull_request:
     branches:
-      - actions*
+      - master
     paths:
       - 3proxy.cfg
       - Dockerfile
       - torproxy.sh
       - torrc
       - users
+      - .github/**
   push:
     branches:
       - master
@@ -19,6 +20,7 @@ on:
       - torproxy.sh
       - torrc
       - users
+      - .github/**
 
 jobs:
   test-proxy:
