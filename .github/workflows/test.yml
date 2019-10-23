@@ -53,8 +53,7 @@ jobs:
         run: |
           [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are equal"
           [[ "${{env.direct_ip}}" != "${{env.proxy1_ip}}" ]] && echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are not equal"
-          exit 2
-          [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && exit 1
+          [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && exit 2
 
 #      - name: Proxy 2 gives different ip
 #        run: |
