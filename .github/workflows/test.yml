@@ -25,14 +25,16 @@ jobs:
 
       - name: Direct requests give same IPs
         run: |
-          ip1=$(./utils/get_ip.sh)
-          ip2=$(./utils/get_ip.sh)
-          echo comparing "$ip1" and "$ip2"...
-          [[ "$ip1" != "$ip2" ]] && exit 1
+          echo ::set-env name=direct_ip::$(./utils/get_ip.sh)
+#          ip1=$(./utils/get_ip.sh)
+#          ip2=$(./utils/get_ip.sh)
+#          echo comparing "$ip1" and "$ip2"...
+#          [[ "$ip1" != "$ip2" ]] && exit 1
 
       - name: Check anonymous proxy working
         run: |
-          ip1=$(./utils/get_ip.sh)
-          ip2=$(./utils/get_ip.sh --proxy 1080)
-          echo comparing "$ip1" and "$ip2"...
-          [[ "$ip1" != "$ip2" ]] && exit 1
+          echo ::set-env name=proxy1_ip::$(./utils/get_ip.sh --proxy 1080)
+
+      - name: Anonymous proxy gives different ip
+        run: |
+          [[ "${{ direct_ip }}" != "${{ proxy1_ip }}" ]] && exit 1
