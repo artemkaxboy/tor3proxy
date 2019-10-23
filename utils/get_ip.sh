@@ -29,6 +29,6 @@ CURL="curl -sL$PROXY$USER $URL"
 #DIRECT_IP=$(curl -sL "$URL" | grep -Po '"ip":"\K[^"]*') || error "failed"
 #PROXY_IP=$(curl -sL --socks5 127.0.0.1:1080 "$URL" | grep -Po '"ip":"\K[^"]*')
 
-echo "$CURL"
+#echo "$CURL"
 # shellcheck disable=SC2005
 echo "$($CURL | grep -Po '"ip":"\K[^"]*' || error "failed to perform request: $CURL")"
