@@ -24,10 +24,10 @@ jobs:
         run: docker run -d -p 1080:1080 artemkaxboy/tor3proxy
 
       - name: Run container
-        run: docker run -d -p 1080:1081 artemkaxboy/tor3proxy -u "user:password"
+        run: docker run -d -p 1081:1080 artemkaxboy/tor3proxy -u "user:password"
 
       - name: Run container
-        run: docker run -d -p 1080:1082 artemkaxboy/tor3proxy -u "user2:password"
+        run: docker run -d -p 1082:1080 artemkaxboy/tor3proxy -u "user2:password"
 
       - name: Direct requests give same IPs
         run: |
