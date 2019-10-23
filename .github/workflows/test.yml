@@ -59,13 +59,13 @@ jobs:
 
       - name: Proxy 2 gives different ip
         run: |
-          if [[ "${{env.direct_ip}}" == "${{env.$proxy2_ip}}" ]] ; then
+          if [[ "${{env.direct_ip}}" == "${{env.proxy2_ip}}" ]] ; then
             exit 1
           fi
 
       - name: Proxy 3 gives different ip
         run: |
-          if [[ "${{env.direct_ip}}" == "${{env.$proxy3_ip}}" ]] ; then
+          if [[ "${{env.direct_ip}}" == "${{env.proxy3_ip}}" ]] ; then
             exit 1
           fi
 
