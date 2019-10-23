@@ -1,19 +1,33 @@
-name: Trying Actions
+name: Tests
 
 on:
-  push:
-    branches:
-    tags:
   pull_request:
+    branches:
+      - master
+    paths:
+      - 3proxy.cfg
+      - Dockerfile
+      - torproxy.sh
+      - torrc
+      - users
+      - .github/**
 
 jobs:
-  build:
-    name: Building an image
+  test-proxy:
+    name: Testing tor3proxy
     runs-on: ubuntu-latest
+
+#    services:
+#      tor3proxy:
+#        image: Dockerfile
+#        ports:
+#          - 1080:1080
+
+#    strategy:
+#      matrix:
+#        node: [6, 8, 10]
+
     steps:
-      - uses: actions/checkout@master
-      - name: Docker version
-        run: docker version
       - name: Debug if needed
         run: |
           export DEBUG=${DEBUG:-false}
@@ -21,5 +35,56 @@ jobs:
             env
           fi
         env:
-          DEBUG: ${{secrets.DEBUG}}
+          DEBUG: ${{ secrets.DEBUG }}
 
+      - name: Checking out the repo
+        uses: actions/checkout@master
+
+      - name: Docker build
+        run: docker build . --file Dockerfile --tag tor3proxy
+
+      - name: Run container
+        run: docker run -d -p 1080:1080 tor3proxy
+
+      - name: Run container
+        run: docker run -d -p 1081:1080 tor3proxy -u "user100:password100"
+
+      - name: Run container
+        run: docker run -d -p 1082:1080 -v ${{env.PWD}}/users:/users tor3proxy
+
+      - name: Direct requests give same IPs
+        run: |
+          echo ::set-env name=direct_ip::$(./utils/get_ip.sh)
+
+      - name: Check anonymous proxy working
+        run: |
+          echo ::set-env name=proxy1_ip::$(./utils/get_ip.sh --socks5 1080)
+
+      - name: Check proxy2 working
+        run: |
+          echo ::set-env name=proxy2_ip::$(./utils/get_ip.sh --socks5 1081 --user user100:password100)
+
+      - name: Check proxy3 working
+        run: |
+          echo ::set-env name=proxy3_ip::$(./utils/get_ip.sh --socks5 1082 --user user:password)
+
+      - name: Anonymous proxy gives different ip
+        run: |
+          if [[ "$direct_ip" == "$proxy1_ip" ]] ; then
+            echo "$direct_ip and "$proxy1_ip" are equal"
+            exit 1
+          fi
+
+      - name: Proxy 2 gives different ip
+        run: |
+          if [[ "$direct_ip" == "$proxy2_ip" ]] ; then
+            echo "$direct_ip and "$proxy2_ip" are equal"
+            exit 1
+          fi
+
+      - name: Proxy 3 gives different ip
+        run: |
+          if [[ "$direct_ip" == "$proxy3_ip" ]] ; then
+            echo "$direct_ip and "$proxy3_ip" are equal"
+            exit 1
+          fi
