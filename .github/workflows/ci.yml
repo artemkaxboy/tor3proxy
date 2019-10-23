@@ -37,17 +37,17 @@ jobs:
 #         with:
 #           ref: ${{ github.ref }}
 
-      - name: Docker build
-        run: docker build . --file Dockerfile --tag tor3proxy
+#      - name: Docker build
+#        run: docker build . --file Dockerfile --tag tor3proxy
 
-      - name: Run container
-        run: docker run -d -p 1080:1080 --rm tor3proxy
+#      - name: Run container
+#        run: docker run -d -p 1080:1080 --rm tor3proxy
 
-      - name: Run container
-        run: docker run -d -p 1081:1080 --rm tor3proxy
+#      - name: Run container
+#        run: docker run -d -p 1081:1080 --rm tor3proxy
 
-      - name: Run container
-        run: docker run -d -p 1082:1080 --rm tor3proxy
+#      - name: Run container
+#        run: docker run -d -p 1082:1080 --rm tor3proxy
 
       - name: Direct requests give same IPs
         run: |
