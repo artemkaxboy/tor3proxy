@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Docker version
-        run: docker version
+      - name: Docker build
+        run: docker build . --file Dockerfile --tag tor3proxy
       - name: Debug if needed
         run: |
           export DEBUG=${DEBUG:-false}
@@ -22,4 +22,3 @@ jobs:
           fi
         env:
           DEBUG: ${{secrets.DEBUG}}
-
