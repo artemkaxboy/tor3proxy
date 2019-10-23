@@ -11,16 +11,6 @@ on:
       - torrc
       - users
       - .github/**
-  push:
-    branches:
-      - master
-    paths:
-      - 3proxy.cfg
-      - Dockerfile
-      - torproxy.sh
-      - torrc
-      - users
-      - .github/**
 
 jobs:
   test-proxy:
