@@ -6,10 +6,23 @@ jobs:
   build:
     name: Building an image
     runs-on: ubuntu-latest
+
+#    services:
+#      tor3proxy:
+#        image: Dockerfile
+#        ports:
+#          - 1080:1080
+
+#    strategy:
+#      matrix:
+#        node: [6, 8, 10]
+
+
     steps:
-#      - uses: actions/checkout@master
-#        #with:
-#        #  ref: ${{ github.ref }}
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node }}
+
       - name: Debug if needed
         run: |
           export DEBUG=${DEBUG:-false}
@@ -21,32 +34,31 @@ jobs:
 
       - name: Checking out the repo
         uses: actions/checkout@master
+#         with:
+#           ref: ${{ github.ref }}
 
       - name: Docker build
         run: docker build . --file Dockerfile --tag tor3proxy
 
       - name: Run container
-        run: docker run -d -p 1080:1080 --name free-proxy --rm tor3proxy
+        run: docker run -d -p 1080:1080 --rm tor3proxy
 
-#  test:
-#    name: Testing an image
-#    runs-on: ubuntu-latest
-#
-#    services:
-#      tor3proxy:
-#        image: Dockerfile
-#        ports:
-#          - 1080:1080
+      - name: Run container
+        run: docker run -d -p 1081:1080 --rm tor3proxy
 
-#    strategy:
-#      matrix:
-#        node: [6, 8, 10]
+      - name: Run container
+        run: docker run -d -p 1082:1080 --rm tor3proxy
 
-#    steps:
-      - name: eq
+      - name: Direct requests give same IPs
         run: |
-          curl --socks5 127.0.0.1:1080 -L http://jsonip.com
-#          curl --socks5 127.0.0.1:1080 --proxy-user user:password -L http://jsonip.com
-#      - uses: actions/setup-node@v1
-#        with:
-#          node-version: ${{ matrix.node }}
+          ip1=$(./utils/get_ip.sh)
+          ip2=$(./utils/get_ip.sh)
+          echo comparing "$ip1" and "$ip2"...
+          [[ "$ip1" != "$ip2" ]] && exit 1
+
+      - name: Check anonymous proxy working
+        run: |
+          ip1=$(./utils/get_ip.sh)
+          ip2=$(./utils/get_ip.sh --proxy 1080)
+          echo comparing "$ip1" and "$ip2"...
+          [[ "$ip1" != "$ip2" ]] && exit 1
