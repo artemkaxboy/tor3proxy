@@ -1,28 +1,13 @@
-name: Tests
+name: TestTest
 
-#on: [push, pull_request]
+on: [push, pull_request]
 
 jobs:
   build:
     name: Building an image
     runs-on: ubuntu-latest
 
-#    services:
-#      tor3proxy:
-#        image: Dockerfile
-#        ports:
-#          - 1080:1080
-
-#    strategy:
-#      matrix:
-#        node: [6, 8, 10]
-
-
     steps:
-#      - uses: actions/setup-node@v1
-#        with:
-#          node-version: ${{ matrix.node }}
-
       - name: Debug if needed
         run: |
           export DEBUG=${DEBUG:-false}
@@ -34,20 +19,9 @@ jobs:
 
       - name: Checking out the repo
         uses: actions/checkout@master
-#         with:
-#           ref: ${{ github.ref }}
-
-      - name: Docker build
-        run: docker build . --file Dockerfile --tag tor3proxy
 
       - name: Run container
-        run: docker run -d -p 1080:1080 --rm tor3proxy
-
-      - name: Run container
-        run: docker run -d -p 1081:1080 --rm tor3proxy
-
-      - name: Run container
-        run: docker run -d -p 1082:1080 --rm tor3proxy
+        run: docker run -d -p 1080:1080 artemkaxboy/tor3proxy
 
       - name: Direct requests give same IPs
         run: |
