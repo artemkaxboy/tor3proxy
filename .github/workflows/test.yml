@@ -51,7 +51,15 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
-          [ "$direct_ip" == "$proxy1_ip" ] && exit 1
+          if [[ "$direct_ip" == "$proxy1_ip" ]] ; then
+            echo "eq1"
+          fi
+          if [[ ${direct_ip} == ${proxy1_ip} ]] ; then
+            echo "eq2"
+          fi
+          if [[ ${{env.direct_ip}} == ${{env.proxy1_ip}} ]] ; then
+            echo "eq3"
+          fi
 
 #      - name: Proxy 2 gives different ip
 #        run: |
