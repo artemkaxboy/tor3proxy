@@ -23,11 +23,11 @@ jobs:
       - name: Run container
         run: docker run -d -p 1080:1080 artemkaxboy/tor3proxy
 
-      - name: Run container
-        run: docker run -d -p 1081:1080 artemkaxboy/tor3proxy -u "user:password"
-
-      - name: Run container
-        run: docker run -d -p 1082:1080 artemkaxboy/tor3proxy -u "user2:password"
+#      - name: Run container
+#        run: docker run -d -p 1081:1080 artemkaxboy/tor3proxy -u "user:password"
+#
+#      - name: Run container
+#        run: docker run -d -p 1082:1080 artemkaxboy/tor3proxy -u "user2:password"
 
       - name: Direct requests give same IPs
         run: |
@@ -41,27 +41,22 @@ jobs:
         run: |
           echo ::set-env name=proxy1_ip::$(./utils/get_ip.sh --socks5 1080)
 
-      - name: Check proxy2 working
-        run: |
-          echo ::set-env name=proxy2_ip::$(./utils/get_ip.sh --socks5 1081 --user user:password)
-
-      - name: Check proxy3 working
-        run: |
-          echo ::set-env name=proxy3_ip::$(./utils/get_ip.sh --socks5 1082 --user user2:password)
+#      - name: Check proxy2 working
+#        run: |
+#          echo ::set-env name=proxy2_ip::$(./utils/get_ip.sh --socks5 1081 --user user:password)
+#
+#      - name: Check proxy3 working
+#        run: |
+#          echo ::set-env name=proxy3_ip::$(./utils/get_ip.sh --socks5 1082 --user user2:password)
 
       - name: Anonymous proxy gives different ip
         run: |
-          echo "$direct_ip"
-          echo "$proxy1_ip"
-          echo ${env.direct_ip}
-          echo ${env.proxy1_ip}
-          echo "$env.proxy1_ip"
-          [[ "$direct_ip" == "$proxy1_ip" ]] && exit 1
+          [ "$direct_ip" == "$proxy1_ip" ] && exit 1
 
-      - name: Proxy 2 gives different ip
-        run: |
-          [[ "$direct_ip" == "$proxy2_ip" ]] && exit 1
-
-      - name: Proxy 3 gives different ip
-        run: |
-          [[ "$direct_ip" == "$proxy3_ip" ]] && exit 1
+#      - name: Proxy 2 gives different ip
+#        run: |
+#          [[ "$direct_ip" == "$proxy2_ip" ]] && exit 1
+#
+#      - name: Proxy 3 gives different ip
+#        run: |
+#          [[ "$direct_ip" == "$proxy3_ip" ]] && exit 1
