@@ -51,12 +51,12 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
-          [[ "$direct_ip" != "$proxy1_ip" ]] && exit 1
+          [[ "$direct_ip" == "$proxy1_ip" ]] && exit 1
 
       - name: Proxy 2 gives different ip
         run: |
-          [[ "$direct_ip" != "$proxy2_ip" ]] && exit 1
+          [[ "$direct_ip" == "$proxy2_ip" ]] && exit 1
 
       - name: Proxy 3 gives different ip
         run: |
-          [[ "$direct_ip" != "$proxy3_ip" ]] && exit 1
+          [[ "$direct_ip" == "$proxy3_ip" ]] && exit 1
