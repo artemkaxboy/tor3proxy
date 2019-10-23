@@ -1,10 +1,28 @@
 name: Tests
 
-#on: [push, pull_request]
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - 3proxy.cfg
+      - Dockerfile
+      - torproxy.sh
+      - torrc
+      - users
+  push:
+    branches:
+      - master
+    paths:
+      - 3proxy.cfg
+      - Dockerfile
+      - torproxy.sh
+      - torrc
+      - users
 
 jobs:
-  build:
-    name: Building an image
+  test-proxy:
+    name: Testing tor3proxy
     runs-on: ubuntu-latest
 
 #    services:
@@ -17,12 +35,7 @@ jobs:
 #      matrix:
 #        node: [6, 8, 10]
 
-
     steps:
-#      - uses: actions/setup-node@v1
-#        with:
-#          node-version: ${{ matrix.node }}
-
       - name: Debug if needed
         run: |
           export DEBUG=${DEBUG:-false}
@@ -34,31 +47,52 @@ jobs:
 
       - name: Checking out the repo
         uses: actions/checkout@master
-#         with:
-#           ref: ${{ github.ref }}
 
-#      - name: Docker build
-#        run: docker build . --file Dockerfile --tag tor3proxy
+      - name: Docker build
+        run: docker build . --file Dockerfile --tag tor3proxy
 
-#      - name: Run container
-#        run: docker run -d -p 1080:1080 --rm tor3proxy
+      - name: Run container
+        run: docker run -d -p 1080:1080 tor3proxy
 
-#      - name: Run container
-#        run: docker run -d -p 1081:1080 --rm tor3proxy
+      - name: Run container
+        run: docker run -d -p 1081:1080 tor3proxy -u "user100:password100"
 
-#      - name: Run container
-#        run: docker run -d -p 1082:1080 --rm tor3proxy
+      - name: Run container
+        run: docker run -d -p 1082:1080 -v ${{env.PWD}}/users:/users tor3proxy
 
       - name: Direct requests give same IPs
         run: |
-          ip1=$(./utils/get_ip.sh)
-          ip2=$(./utils/get_ip.sh)
-          echo comparing "$ip1" and "$ip2"...
-          [[ "$ip1" != "$ip2" ]] && exit 1
+          echo ::set-env name=direct_ip::$(./utils/get_ip.sh)
 
       - name: Check anonymous proxy working
         run: |
-          ip1=$(./utils/get_ip.sh)
-          ip2=$(./utils/get_ip.sh --proxy 1080)
-          echo comparing "$ip1" and "$ip2"...
-          [[ "$ip1" != "$ip2" ]] && exit 1
+          echo ::set-env name=proxy1_ip::$(./utils/get_ip.sh --socks5 1080)
+
+      - name: Check proxy2 working
+        run: |
+          echo ::set-env name=proxy2_ip::$(./utils/get_ip.sh --socks5 1081 --user user100:password100)
+
+      - name: Check proxy3 working
+        run: |
+          echo ::set-env name=proxy3_ip::$(./utils/get_ip.sh --socks5 1082 --user user:password)
+
+      - name: Anonymous proxy gives different ip
+        run: |
+          if [[ "$direct_ip" == "$proxy1_ip" ]] ; then
+            echo "$direct_ip and "$proxy1_ip" are equal"
+            exit 1
+          fi
+
+      - name: Proxy 2 gives different ip
+        run: |
+          if [[ "$direct_ip" == "$proxy2_ip" ]] ; then
+            echo "$direct_ip and "$proxy2_ip" are equal"
+            exit 1
+          fi
+
+      - name: Proxy 3 gives different ip
+        run: |
+          if [[ "$direct_ip" == "$proxy3_ip" ]] ; then
+            echo "$direct_ip and "$proxy3_ip" are equal"
+            exit 1
+          fi
