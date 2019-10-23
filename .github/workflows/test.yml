@@ -51,9 +51,13 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
-          [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are equal"
-          [[ "${{env.direct_ip}}" != "${{env.proxy1_ip}}" ]] && echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are not equal"
-          [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && exit 2
+          if [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] ; then
+            echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are equal"
+            echo "$direct_ip"
+            exit 2
+          else
+            echo "${{env.direct_ip}} and ${{env.proxy1_ip}} are not equal"
+          fi
 
 #      - name: Proxy 2 gives different ip
 #        run: |
