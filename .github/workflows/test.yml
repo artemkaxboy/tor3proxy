@@ -51,7 +51,7 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
-          [[ ${{env.direct_ip}} == ${{env.proxy1_ip}} ]] && exit 1
+          [[ "${{env.direct_ip}}" == "${{env.proxy1_ip}}" ]] && exit 1
 
 #      - name: Proxy 2 gives different ip
 #        run: |
