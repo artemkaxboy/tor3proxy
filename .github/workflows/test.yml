@@ -37,4 +37,4 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
-          [[ "${{ direct_ip }}" != "${{ proxy1_ip }}" ]] && exit 1
+          [[ "$direct_ip" != "$proxy1_ip" ]] && exit 1
