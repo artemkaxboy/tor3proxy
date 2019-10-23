@@ -7,11 +7,11 @@ jobs:
     name: Building an image
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
-#        with:
-#          ref: ${{ github.ref }}
-      - name: Docker build
-        run: docker build . --file Dockerfile --tag tor3proxy
+#      - uses: actions/checkout@master
+#        #with:
+#        #  ref: ${{ github.ref }}
+#      - name: Docker build
+#        run: docker build . --file Dockerfile --tag tor3proxy
       - name: Debug if needed
         run: |
           export DEBUG=${DEBUG:-false}
@@ -26,7 +26,7 @@ jobs:
 
     services:
       tor3proxy:
-        image: tor3proxy
+        image: Dockerfile
         ports:
           - 1080:1080
 
