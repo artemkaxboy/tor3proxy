@@ -51,6 +51,11 @@ jobs:
 
       - name: Anonymous proxy gives different ip
         run: |
+          echo "$direct_ip"
+          echo "$proxy1_ip"
+          echo ${env.direct_ip}
+          echo ${env.proxy1_ip}
+          echo "$env.proxy1_ip"
           [[ "$direct_ip" == "$proxy1_ip" ]] && exit 1
 
       - name: Proxy 2 gives different ip
