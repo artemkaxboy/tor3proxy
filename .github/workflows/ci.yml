@@ -11,13 +11,13 @@ jobs:
 #        #with:
 #        #  ref: ${{ github.ref }}
       - name: Debug if needed
-          run: |
-            export DEBUG=${DEBUG:-false}
-            if [[ "$DEBUG" == "true" ]] ; then
-              env
-            fi
-          env:
-            DEBUG: ${{secrets.DEBUG}}
+        run: |
+          export DEBUG=${DEBUG:-false}
+          if [[ "$DEBUG" == "true" ]] ; then
+            env
+          fi
+        env:
+          DEBUG: ${{ secrets.DEBUG }}
 
       - name: Docker build
         run: docker build . --file Dockerfile --tag tor3proxy
