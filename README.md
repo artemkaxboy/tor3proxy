@@ -1,6 +1,6 @@
 DockerHub: <https://cloud.docker.com/u/artemkaxboy/repository/docker/artemkaxboy/tor3proxy>
 
-## Tor and 3proxy
+## Tor and 3proxy ![](https://github.com/artemkaxboy/tor3proxy/workflows/Tests/badge.svg?branch=master)
 
 Tor and 3proxy (socks5 proxy configured to route through tor) docker container.
 The main goal of this image is to allow you to reach web resources through

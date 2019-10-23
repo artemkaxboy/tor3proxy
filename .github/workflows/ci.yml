@@ -1,10 +1,6 @@
-name: Trying Actions
+name: Tests
 
-on:
-  push:
-    branches:
-    tags:
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   build:
@@ -12,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
+#        with:
+#          ref: ${{ github.ref }}
       - name: Docker build
         run: docker build . --file Dockerfile --tag tor3proxy
       - name: Debug if needed
@@ -22,3 +20,25 @@ jobs:
           fi
         env:
           DEBUG: ${{secrets.DEBUG}}
+  test:
+    name: Testing an image
+    runs-on: ubuntu-latest
+
+    services:
+      tor3proxy:
+        image: tor3proxy
+        ports:
+          - 1080:1080
+
+#    strategy:
+#      matrix:
+#        node: [6, 8, 10]
+
+    steps:
+      - name: eq
+        run: |
+          curl --socks5 tor3proxy:1080 -L http://jsonip.com
+#          curl --socks5 127.0.0.1:1080 --proxy-user user:password -L http://jsonip.com
+#      - uses: actions/setup-node@v1
+#        with:
+#          node-version: ${{ matrix.node }}
