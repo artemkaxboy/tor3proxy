@@ -184,10 +184,10 @@ chown -Rh tor. /etc/tor /var/lib/tor /var/log/tor 2>&1 |
             grep -iv 'Read-only' || :
 
 if [[ -f /users ]]; then
-    users="/etc/3proxy/cfg/3proxy.cfg"
+    users_file="/users"
     while IFS= read -r line ; do
         user "$line"
-    done < "$users"
+    done < "$users_file"
 elif [[ ${USER} -ne 1 ]]; then
     sed -i '/auth strong/d' /etc/3proxy/cfg/3proxy.cfg
 fi
