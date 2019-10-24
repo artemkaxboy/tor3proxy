@@ -2,7 +2,7 @@ install:
   - docker build --tag tor3proxy .
   - docker run -d -p 1080:1080 tor3proxy
   - docker run -d -p 1081:1080 tor3proxy -u "user100:password100"
-  - docker run -d -p 1082:1080 -v ${{env.PWD}}/users:/users tor3proxy
+  - docker run -d -p 1082:1080 -v $TRAVIS_BUILD_DIR/users:/users tor3proxy
 
 script:
   - docker ps | grep -q blog
