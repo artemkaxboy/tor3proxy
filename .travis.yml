@@ -1,4 +1,6 @@
-language: minimal
+branches:
+  only:
+    - master
 
 install:
   - docker build --tag tor3proxy .
