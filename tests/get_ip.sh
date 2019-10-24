@@ -12,11 +12,11 @@ if [[ -n "$1" ]]; then
   for (( i=1; i<=$#; i++ )) ; do
     case "${!i}" in
     --socks5)
-      i=$(($i+1))
+      i=$((i+1))
       PROXY=" --socks5 127.0.0.1:${!i}"
       ;;
     --user)
-      i=$(($i+1))
+      i=$((i+1))
       USER=" --proxy-user ${!i}"
       ;;
     esac
