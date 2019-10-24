@@ -10,5 +10,5 @@ install:
 
 script:
   - ./tests/ips_ne.sh --socks5=1080
-  - ./tests/ips_ne.sh --socks5=1081,user=user100:password100
-  - ./tests/ips_ne.sh --socks5=1082,user=user:password
+  - ./tests/ips_ne.sh --socks5=1081,--user=user100:password100
+  - ./tests/ips_ne.sh --socks5=1082,--user=user:password
