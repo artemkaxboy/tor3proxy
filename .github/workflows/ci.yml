@@ -86,3 +86,7 @@ jobs:
       - name: Proxy 3 gives different ip
         run: |
           ./tests/ips_ne.sh --socks5=1082,--user=user:password
+
+      - name: user-password without type works
+        run: |
+          ./tests/ips_eq.sh --socks5=1082,--user=user:password --socks5=1082,--user=user2:password2
