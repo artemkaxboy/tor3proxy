@@ -113,10 +113,33 @@ The 'command' (if provided and valid) will be run instead of torproxy
 #   password) for user
 # Return: user added to container
 user() { local
-    user="$(echo $1 | cut -d':' -f1)"
-    passwd="$(echo $1 | cut -d':' -f2)"
+    IFS=':' read -ra ARR <<< "$1"
 
-    printf "users $user:CL:$passwd\n" >> /etc/3proxy/cfg/3proxy.cfg
+    case ${#ARR[@]} in
+    2)
+        type="CL"
+        pass=${ARR[1]}
+        ;;
+    3)
+        type=${ARR[1]}
+        pass=${ARR[2]}
+        ;;
+    *)
+        return
+        ;;
+    esac
+
+    user=${ARR[0]}
+
+    case $type in
+    CL | CR | NT)
+        ;;
+    *)
+        return
+        ;;
+    esac
+
+    printf "users %s:%s:%s\n" "$user" "$type" "$pass" >> /etc/3proxy/cfg/3proxy.cfg
     echo "user $user added"
     USER=1
 }
@@ -161,7 +184,10 @@ chown -Rh tor. /etc/tor /var/lib/tor /var/log/tor 2>&1 |
             grep -iv 'Read-only' || :
 
 if [[ -f /users ]]; then
-    printf "users $\"/users\"\n" >> /etc/3proxy/cfg/3proxy.cfg
+    users_file="/users"
+    while IFS= read -r line ; do
+        user "$line"
+    done < "$users_file"
 elif [[ ${USER} -ne 1 ]]; then
     sed -i '/auth strong/d' /etc/3proxy/cfg/3proxy.cfg
 fi
