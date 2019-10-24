@@ -12,11 +12,11 @@ if [[ -n "$1" ]]; then
   for (( i=1; i<=$#; i++ )) ; do
     case "${!i}" in
     --socks5)
-      i=$(("$i"+1))
+      i=$((i+1))
       PROXY=" --socks5 127.0.0.1:${!i}"
       ;;
     --user)
-      i=$(("$i"+1))
+      i=$((i+1))
       USER=" --proxy-user ${!i}"
       ;;
     esac
@@ -31,4 +31,8 @@ CURL="curl -sL$PROXY$USER $URL"
 
 #echo "$CURL"
 # shellcheck disable=SC2005
-echo "$($CURL | grep -Po '"ip":"\K[^"]*' || error "failed to perform request: $CURL")"
+ip="$($CURL | grep -Po '"ip":"\K[^"]*')"
+if [[ ${#ip} == 0 ]] ; then
+  error "failed to perform request: $CURL"
+fi
+echo "$ip"
