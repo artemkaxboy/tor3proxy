@@ -143,7 +143,7 @@ OR
 
 OR if you allowed anonymous access
 
-    curl -Lx --socks5 <ipv4_address>:1080 http://jsonip.com
+    curl -Lxv --socks5 <ipv4_address>:1080 http://jsonip.com
 
 ---
 
