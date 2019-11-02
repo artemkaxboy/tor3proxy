@@ -32,9 +32,14 @@ or
 
     docker run -p 1080:1080 -v /path/to/users/file:/users -d artemkaxboy/tor3proxy
 
+To run the container with anonymous access run the
+following commands (use it only in private networks or locally):
+
+    docker run -p 1080:1080 -d artemkaxboy/tor3proxy
+
 To get access to the network through the proxy, setup your device for using
 SOCKS5 proxy, choose the port (default is 1080), type in your username
-and password.
+and password if needed.
 
 ### Exposing the port
 
@@ -77,13 +82,14 @@ The file must contain the list in the following format:
     users admin:CL:bigsecret test:CL:password test1:CL:password1
     users "test2:CR:$1$lFDGlder$pLRb4cU2D7GAT58YQvY49."
     users test3:NT:BD7DFBF29A93F93C63CB84790DA00E63
+    users superadmin:mynewpassword
 
 You might notice the quotes in the second line, they are needed because of
 `$` symbol, it is a meta-symbol which is using in 3proxy configuration so
 you must use quotes to escape it.
 
 The following password types are supported:
-* `CL` - clear text password
+* `CL` - clear text password (used if was not specified)
 * `CR` - passwords encrypted by crypt() (MD5 only)
 * `NT` - hex-string representing NT-password
 
@@ -134,6 +140,10 @@ OR
 ### Test the proxy
 
     curl -Lxv --socks5 <ipv4_address>:1080 --proxy-user <user>:<password> http://jsonip.com
+
+OR if you allowed anonymous access
+
+    curl -Lx --socks5 <ipv4_address>:1080 http://jsonip.com
 
 ---
 
