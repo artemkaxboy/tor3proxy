@@ -33,6 +33,6 @@ EXPOSE 1080 5353/udp 9040 9050
 HEALTHCHECK --interval=60s --timeout=15s --start-period=90s \
             CMD curl --socks5-hostname localhost:9050 -L 'https://api.ipify.org'
 
-VOLUME ["/etc/tor", "/var/lib/tor"]
+VOLUME ["/etc/tor", "/var/lib/tor", "/data"]
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/torproxy.sh"]

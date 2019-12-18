@@ -30,7 +30,7 @@ following commands:
 
 or
 
-    docker run -p 1080:1080 -v /path/to/users/file:/users -d artemkaxboy/tor3proxy
+    docker run -p 1080:1080 -v /path/to/users/file:/data/users -d artemkaxboy/tor3proxy
 
 To run the container with anonymous access run the
 following commands (use it only in private networks or locally):
@@ -75,7 +75,7 @@ PROXY USERS LIST
 As well as setting up users by option `-u`, you may pass a list of
 user/password as a volume file:
 
-    docker run -p 1080:1080 -v /path/to/file/on/host:/users artemkaxboy/tor3proxy
+    docker run -p 1080:1080 -v /path/to/file/on/host:/data/users artemkaxboy/tor3proxy
 
 The file must contain the list in the following format:
     
