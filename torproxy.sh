@@ -183,8 +183,8 @@ done
 chown -Rh tor. /etc/tor /var/lib/tor /var/log/tor 2>&1 |
             grep -iv 'Read-only' || :
 
-if [[ -f /users ]]; then
-    users_file="/users"
+if [[ -f /data/users ]]; then
+    users_file="/data/users"
     while IFS= read -r line ; do
         user "$line"
     done < "$users_file"
