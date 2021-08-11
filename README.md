@@ -4,7 +4,7 @@ DockerHub: <https://cloud.docker.com/u/artemkaxboy/repository/docker/artemkaxboy
 
 Tor and 3proxy (socks5 proxy configured to route through tor) docker container.
 The main goal of this image is to allow you to reach web resources through
-tor-network with a chane to protect access to your proxy with a password.
+tor-network with a chance to protect access to your proxy with a password.
 
 ## What is Tor
 
