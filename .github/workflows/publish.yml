@@ -33,7 +33,6 @@ jobs:
           ref_name=${GITHUB_REF#refs/*/}
           now=$(date --rfc-3339=seconds --utc)
           echo PUBLISH VERSION: ${version}
-          echo ${GH_REGISTRY_TOKEN} | docker login ghcr.io -u ${GH_REGISTRY_USERNAME} --password-stdin
           echo ${DOCKER_REGISTRY_TOKEN} | docker login -u ${DOCKER_REGISTRY_USERNAME} --password-stdin
           docker buildx build --push \
               --platform linux/amd64,linux/arm/v7,linux/arm64 \
@@ -53,7 +52,6 @@ jobs:
           ref_name=${GITHUB_REF#refs/*/}
           now=$(date --rfc-3339=seconds --utc)
           echo PUBLISH VERSION: ${version} latest
-          echo ${GH_REGISTRY_TOKEN} | docker login ghcr.io -u ${GH_REGISTRY_USERNAME} --password-stdin
           echo ${DOCKER_REGISTRY_TOKEN} | docker login -u ${DOCKER_REGISTRY_USERNAME} --password-stdin
           docker buildx build --push \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
