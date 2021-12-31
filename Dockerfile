@@ -15,7 +15,8 @@ RUN mkdir /etc/3proxy/
 
 COPY --from=builder /3proxy/bin/3proxy /etc/3proxy/
 
-RUN apk update && apk --no-cache --no-progress add curl shadow tini tor bash && \
+RUN apk update && apk add ca-certificates
+RUN apk --no-cache --no-progress add curl shadow tini tor bash && \
     chmod +x /etc/3proxy/3proxy && \
     mkdir /etc/3proxy/cfg && \
     mkdir -p /etc/tor/run && \
