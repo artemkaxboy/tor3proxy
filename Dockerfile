@@ -8,14 +8,14 @@ RUN apk add --no-cache --no-progress alpine-sdk git && \
 
 # STEP 2
 
-FROM alpine:3.15
+FROM alpine/curl:3.14
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
 RUN mkdir /etc/3proxy/
 
 COPY --from=builder /3proxy/bin/3proxy /etc/3proxy/
 
-RUN sh -c apk --no-cache --no-progress add curl shadow tini tor bash && \
+RUN apk --no-cache --no-progress add curl shadow tini tor bash && \
     chmod +x /etc/3proxy/3proxy && \
     mkdir /etc/3proxy/cfg && \
     mkdir -p /etc/tor/run && \
