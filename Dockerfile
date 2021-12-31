@@ -2,6 +2,7 @@
 
 FROM alpine:3.15 as builder
 
+RUN apk update && apk add ca-certificates
 RUN apk add --no-cache --no-progress alpine-sdk git && \
     git clone https://github.com/artemkaxboy/3proxy.git /3proxy && \
     make -f /3proxy/Makefile.Linux -C /3proxy
