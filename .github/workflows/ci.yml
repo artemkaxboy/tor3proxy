@@ -27,16 +27,6 @@ jobs:
     name: Testing tor3proxy
     runs-on: ubuntu-latest
 
-#    services:
-#      tor3proxy:
-#        image: Dockerfile
-#        ports:
-#          - 1080:1080
-
-#    strategy:
-#      matrix:
-#        node: [6, 8, 10]
-
     steps:
       - name: Debug if needed
         run: |

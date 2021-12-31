@@ -9,7 +9,7 @@ RUN apk add --no-cache --no-progress alpine-sdk git bash && \
 
 # STEP 2
 
-FROM artemkaxboy/baseimage:app-0.1
+FROM alpine:3.15
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
 RUN mkdir /etc/3proxy/
