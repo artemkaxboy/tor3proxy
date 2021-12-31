@@ -1,6 +1,6 @@
 # 3proxy docker
 
-FROM alpine:3.15 as builder
+FROM docker:20.10-git as builder
 
 RUN apk add --no-cache --no-progress alpine-sdk git && \
     git clone https://github.com/artemkaxboy/3proxy.git /3proxy && \
