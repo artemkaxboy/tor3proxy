@@ -1,9 +1,9 @@
 # 3proxy docker
 
-FROM alpine:3.10 as builder
+FROM alpine:3.15 as builder
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
-RUN apk add --no-cache --no-progress alpine-sdk git bash && \
+RUN apk add --no-cache --no-progress alpine-sdk git && \
     git clone https://github.com/artemkaxboy/3proxy.git /3proxy && \
     make -f /3proxy/Makefile.Linux -C /3proxy
 
@@ -16,7 +16,7 @@ RUN mkdir /etc/3proxy/
 
 COPY --from=builder /3proxy/bin/3proxy /etc/3proxy/
 
-RUN apk --no-cache --no-progress add bash curl shadow tini tor && \
+RUN apk --no-cache --no-progress add curl shadow tini tor && \
     chmod +x /etc/3proxy/3proxy && \
     mkdir /etc/3proxy/cfg && \
     mkdir -p /etc/tor/run && \
