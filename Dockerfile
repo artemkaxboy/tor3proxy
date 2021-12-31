@@ -11,7 +11,7 @@ RUN apk add --no-cache --no-progress alpine-sdk git && \
 FROM alpine/curl:3.14
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
-RUN mkdir /etc/3proxy/
+RUN mkdir /etc/3proxy
 
 COPY --from=builder /3proxy/bin/3proxy /etc/3proxy/
 
