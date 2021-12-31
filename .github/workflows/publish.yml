@@ -36,6 +36,7 @@ jobs:
           echo ${DOCKER_REGISTRY_TOKEN} | docker login -u ${DOCKER_REGISTRY_USERNAME} --password-stdin
           docker buildx build --push \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
+              --platform linux/amd64 \
               -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
               .
       - name: build and push tag and latest to docker.com and ghcr.io
@@ -54,6 +55,7 @@ jobs:
           echo ${DOCKER_REGISTRY_TOKEN} | docker login -u ${DOCKER_REGISTRY_USERNAME} --password-stdin
           docker buildx build --push \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
+              --platform linux/amd64 \
               -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
               -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:latest \
               .
