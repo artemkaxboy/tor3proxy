@@ -2,7 +2,6 @@
 
 FROM alpine:3.15 as builder
 
-RUN apk update && apk add ca-certificates
 RUN apk add --no-cache --no-progress alpine-sdk git && \
     git clone https://github.com/artemkaxboy/3proxy.git /3proxy && \
     make -f /3proxy/Makefile.Linux -C /3proxy
@@ -16,8 +15,7 @@ RUN mkdir /etc/3proxy/
 
 COPY --from=builder /3proxy/bin/3proxy /etc/3proxy/
 
-RUN apk update && apk add ca-certificates
-RUN apk --no-cache --no-progress add curl shadow tini tor bash && \
+RUN sh -c apk --no-cache --no-progress add curl shadow tini tor bash && \
     chmod +x /etc/3proxy/3proxy && \
     mkdir /etc/3proxy/cfg && \
     mkdir -p /etc/tor/run && \
