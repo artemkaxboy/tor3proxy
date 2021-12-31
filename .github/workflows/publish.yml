@@ -35,7 +35,6 @@ jobs:
           echo PUBLISH VERSION: ${version}
           echo ${DOCKER_REGISTRY_TOKEN} | docker login -u ${DOCKER_REGISTRY_USERNAME} --password-stdin
           docker buildx build --push \
-              --platform linux/amd64,linux/arm64 \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
               -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
               .
@@ -55,7 +54,6 @@ jobs:
           echo ${DOCKER_REGISTRY_TOKEN} | docker login -u ${DOCKER_REGISTRY_USERNAME} --password-stdin
           docker buildx build --push \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
-              --platform linux/amd64,linux/arm/v7,linux/arm64 \
               -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
               -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:latest \
               .
