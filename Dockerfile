@@ -8,7 +8,7 @@ RUN apk add --no-cache --no-progress alpine-sdk git && \
 
 # STEP 2
 
-FROM alpine/curl:3.14
+FROM docker:20.10-git
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
 RUN mkdir /etc/3proxy
