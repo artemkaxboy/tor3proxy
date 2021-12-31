@@ -38,7 +38,8 @@ jobs:
           docker buildx build --push \
               --platform linux/amd64,linux/arm/v7,linux/arm64 \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
-              -t ghcr.io/${GH_REGISTRY_USERNAME}/tor3proxy:${version} -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} .
+              -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
+              .
       - name: build and push tag and latest to docker.com and ghcr.io
         if: ${{ startsWith(github.ref, 'refs/tags/v') }}
         env:
@@ -57,5 +58,6 @@ jobs:
           docker buildx build --push \
               --build-arg VERSION=${version} --build-arg REVISION=${revision} --build-arg REF_NAME=${ref_name} --build-arg CREATED="${now}" \
               --platform linux/amd64,linux/arm/v7,linux/arm64 \
-              -t ghcr.io/${GH_REGISTRY_USERNAME}/tor3proxy:${version} -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
-              -t ghcr.io/${GH_REGISTRY_USERNAME}/tor3proxy:latest -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:latest dockerbuild
+              -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:${version} \
+              -t ${DOCKER_REGISTRY_USERNAME}/tor3proxy:latest \
+              .
