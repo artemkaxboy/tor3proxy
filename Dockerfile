@@ -1,6 +1,6 @@
 # 3proxy docker
 
-FROM alpine:3.14 as builder
+FROM alpine:3.12 as builder
 
 RUN apk add --no-cache --no-progress alpine-sdk git && \
     git clone https://github.com/artemkaxboy/3proxy.git /3proxy && \
@@ -8,7 +8,7 @@ RUN apk add --no-cache --no-progress alpine-sdk git && \
 
 # STEP 2
 
-FROM alpine:3.14
+FROM alpine:3.12
 LABEL maintainer="Artem Kolin <artemkaxboy@gmail.com>"
 
 RUN mkdir /etc/3proxy/
