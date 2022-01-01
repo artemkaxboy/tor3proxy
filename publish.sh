@@ -97,9 +97,10 @@ done
 ref_name=$(git rev-parse --abbrev-ref HEAD)
 now=$(date --rfc-3339=second --utc)
 
-echo docker buildx build --push \
+# Don't quote ${tags_string} it breaks command
+docker buildx build --push \
     --build-arg VERSION="$version" --build-arg REVISION="$revision" \
     --build-arg REF_NAME="$ref_name" --build-arg CREATED="$now" \
     --platform linux/amd64,linux/arm64 \
-    "$tags_string" \
+    ${tags_string} \
     .

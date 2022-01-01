@@ -10,11 +10,6 @@ RUN apk add --no-cache --no-progress alpine-sdk git && \
 
 FROM alpine:3.15
 
-ARG VERSION=SNAPSHOT
-ARG REVISION=LOCAL
-ARG REF_NAME
-ARG CREATED
-
 RUN mkdir /etc/3proxy
 
 COPY --from=builder /3proxy/bin/3proxy /etc/3proxy/
@@ -26,6 +21,11 @@ RUN apk --no-cache --no-progress add curl shadow tini tor bash tzdata && \
     chown -Rh tor. /var/lib/tor /etc/tor/run && \
     chmod 0750 /etc/tor/run && \
     rm -rf /tmp/*
+
+ARG VERSION=DEBUG
+ARG REVISION=LOCAL
+ARG REF_NAME
+ARG CREATED
 
 # https://github.com/opencontainers/image-spec/blob/main/annotations.md
 LABEL org.opencontainers.image.created=${CREATED}
