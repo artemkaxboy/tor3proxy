@@ -5,7 +5,7 @@ export DOCKER_IMAGE_NAME=tor3proxy
 
 
 # debug = 1 if there is any uncommitted changes in the repository, 0 - otherwise
-[ -z "$(git status --porcelain=v1 2>/dev/null)" ] && debug=1 || debug=0
+[ -z "$(git status --porcelain=v1 2>/dev/null)" ] && debug=0 || debug=1
 # debug=0 # TODO delete
 
 echo $debug
