@@ -68,7 +68,7 @@ else
             if [[ $git_tag =~ ^v([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
 
                 version=$git_tag
-                tags+=("${BASH_REMATCH[1]} ${BASH_REMATCH[1]}.${BASH_REMATCH[2]} ${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]} latest")
+                tags+=("${BASH_REMATCH[1]}" "${BASH_REMATCH[1]}.${BASH_REMATCH[2]}" "${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}" "latest")
                 echo "'${git_tag}' tag found, '${tags[*]}' tags will be used to build images"
             fi
 
