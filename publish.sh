@@ -43,7 +43,6 @@ if [ ${#git_status} -gt 0 ]; then
 else
     debug=0
 fi
-# debug=0 # TODO delete
 
 # creates empty array
 tags=()
