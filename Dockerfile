@@ -49,9 +49,6 @@ COPY torrc /etc/tor/
 COPY torproxy.sh /usr/bin/
 COPY 3proxy.cfg /etc/3proxy/cfg/
 
-
-RUN date
-
 EXPOSE 1080 5353/udp 9040 9050
 
 HEALTHCHECK --interval=60s --timeout=15s --start-period=90s \
