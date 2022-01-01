@@ -3,16 +3,30 @@
 export DOCKER_REGISTRY_USERNAME=artemkaxboy
 export DOCKER_IMAGE_NAME=tor3proxy
 
+echo """
 ########################
 ######## RULES #########
 ########################
-# 1.   Git has local changes:
-#       VERSION=local   REVISION=local          REF_NAME={current branch}   TAG=debug
-# 2.   Git doesn't have changes:
-# 2.1. Last commit has tag vX.X.X
-#       VERSION=vX.X.X  REVISION={commit_hash}  REF_NAME={current branch}   TAG=vX vX.X vX.X.X latest
-# 2.2. Last commit doesn't have tag vX.X.X
-#       VERSION=local   REVISION={commit_hash}  REF_NAME={current_branch}   TAG=snapshot
+
+1.   Git has local changes:
+      VERSION:  local
+      REVISION: local
+      REF_NAME: {current branch}
+      TAG:      debug
+
+2.   Git doesn't have changes:
+2.1. Last commit has tag vX.X.X
+      VERSION:  vX.X.X
+      REVISION: {commit_hash}
+      REF_NAME: {current branch}
+      TAG:      vX vX.X vX.X.X latest
+
+2.2. Last commit doesn't have tag vX.X.X
+      VERSION:  local
+      REVISION: {commit_hash}
+      REF_NAME: {current_branch}
+      TAG:      snapshot
+"""
 
 # git status --porcelain returns all repo changes if any. But when it is called in non-repo directory it fails with a message
 # we are suppressing message here and checks return code further
@@ -73,10 +87,11 @@ fi
 [ ${#version} -eq 0 ] && version=local
 [ ${#revision} -eq 0 ] && revision=local
 
+
 tags_string=
 for tag in "${tags[@]}"
 do
-    echo "*********** $DOCKER_REGISTRY_USERNAME/$DOCKER_IMAGE_NAME:$tag **********************"
+    echo "Building: $DOCKER_REGISTRY_USERNAME/$DOCKER_IMAGE_NAME:$tag"
     tags_string="${tags_string} --tag $DOCKER_REGISTRY_USERNAME/$DOCKER_IMAGE_NAME:$tag"
 done
 
