@@ -87,7 +87,6 @@ fi
 [ ${#version} -eq 0 ] && version=local
 [ ${#revision} -eq 0 ] && revision=local
 
-
 tags_string=
 for tag in "${tags[@]}"
 do
