@@ -5,6 +5,18 @@ export DOCKER_IMAGE_NAME=tor3proxy
 
 
 # debug = 1 if there is any uncommitted changes in the repository, 0 - otherwise
+git_status=$(git status --porcelain=v1 2>/dev/null)
+if [ $? -ne 0 ]; then
+    echo Git repository not found!
+    exit 1
+fi
+
+if [ ${#git_status} -gt 0 ]; then
+    echo changes
+else
+    echo no changes
+fi
+exit 0
 [ -z "$(git status --porcelain=v1 2>/dev/null)" ] && debug=0 || debug=1
 # debug=0 # TODO delete
 
